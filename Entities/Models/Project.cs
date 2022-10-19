@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entities.Models
 {
-    internal class Project : IEntity
+    public class Project : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
