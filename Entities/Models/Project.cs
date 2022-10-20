@@ -9,6 +9,6 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public static int NumberOfDevelopers { get; set; }
+        public int NumberOfDevelopers { get; set; }
     }
 }
