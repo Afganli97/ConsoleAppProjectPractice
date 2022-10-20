@@ -2,6 +2,7 @@
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataAccess.Repositories
@@ -10,27 +11,52 @@ namespace DataAccess.Repositories
     {
         public bool Create(Project entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DbContext.projects.Add(entity);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool Delete(Project entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DbContext.projects.Remove(entity);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public Project Get(Predicate<Project> filter = null)
         {
-            throw new NotImplementedException();
+            return filter == null ? DbContext.projects[0] : DbContext.projects.Find(filter);
         }
 
         public List<Project> GetAll(Predicate<Project> filter = null)
         {
-            throw new NotImplementedException();
+            return filter == null ? DbContext.projects : DbContext.projects.FindAll(filter);
         }
 
         public bool Update(Project entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Project project = Get(p => p.Name.ToLower() == entity.Name.ToLower());
+                project = entity;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
