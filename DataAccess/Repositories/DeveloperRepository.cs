@@ -11,27 +11,52 @@ namespace DataAccess.Repositories
     {
         public bool Create(Developer entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DbContext.developers.Add(entity);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool Delete(Developer entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DbContext.developers.Remove(entity);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public Developer Get(Predicate<Developer> filter = null)
         {
-            throw new NotImplementedException();
+            return filter == null ? DbContext.developers[0] : DbContext.developers.Find(filter);
         }
 
         public List<Developer> GetAll(Predicate<Developer> filter = null)
         {
-            throw new NotImplementedException();
+            return filter == null ? DbContext.developers : DbContext.developers.FindAll(filter);
         }
 
         public bool Update(Developer entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Developer developer = Get(p => p.Name.ToLower() == entity.Name.ToLower());
+                developer = entity;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
