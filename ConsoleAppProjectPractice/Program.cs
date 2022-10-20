@@ -6,7 +6,11 @@ namespace ConsoleAppProjectPractice
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            int selectMenu;
+            while (true)
+            {
+
+            }
         }
     }
 }
