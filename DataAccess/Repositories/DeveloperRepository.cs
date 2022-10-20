@@ -9,7 +9,7 @@ namespace DataAccess.Repositories
 {
     public class DeveloperRepository : IRepository<Developer>
     {
-        public bool Add(Developer entity)
+        public bool Create(Developer entity)
         {
             throw new NotImplementedException();
         }

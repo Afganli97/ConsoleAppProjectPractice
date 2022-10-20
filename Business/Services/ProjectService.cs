@@ -1,34 +1,39 @@
-﻿using DataAccess.Interfaces;
+﻿using Business.Interfaces;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccess.Repositories
+namespace Business.Services
 {
-    public class ProjectRepository : IRepository<Project>
+    public class ProjectService : IProject
     {
-        public bool Create(Project entity)
+        public Project Create(Project project)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(Project entity)
+        public Project Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Project Get(Predicate<Project> filter = null)
+        public Project Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Project> GetAll(Predicate<Project> filter = null)
+        public Project Get(string name)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(Project entity)
+        public List<Project> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Project Update(int id, Project project)
         {
             throw new NotImplementedException();
         }
