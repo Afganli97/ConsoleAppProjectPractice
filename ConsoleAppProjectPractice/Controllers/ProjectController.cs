@@ -16,7 +16,7 @@ namespace ConsoleAppProjectPractice.Controllers
         }
         public void SelectProjectMenu(out int selectMenu)
         {
-            Helper.Dsiplay(ConsoleColor.Blue, "1.Create project\n2.Delete project\n3.Update project\n4.Get by id\n5.Get by name\n6.Get all\n0.Exit");
+            Helper.Dsiplay(ConsoleColor.Blue, "1.Create project\n2.Update project\n3.Delete project\n4.Get by id\n5.Get by name\n6.Get all\n0.Exit");
         WriteMenuAgain: string selectMenuTemp = Console.ReadLine();
             bool isChangeMenu = Int32.TryParse(selectMenuTemp, out selectMenu);
             if (!isChangeMenu || selectMenu > 6 || selectMenu < 0)

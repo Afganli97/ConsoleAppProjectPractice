@@ -29,8 +29,17 @@ namespace ConsoleAppProjectPractice
                             case (int)Helper.ProjectMethods.Create:
                                 projectController.Create();
                                 break;
+                            case (int)Helper.ProjectMethods.Update:
+                                projectController.Update();
+                                break;
                             case (int)Helper.ProjectMethods.Delete:
                                 projectController.Delete();
+                                break;
+                            case (int)Helper.ProjectMethods.GetById:
+                                projectController.GetById();
+                                break;
+                            case (int)Helper.ProjectMethods.GetByName:
+                                projectController.GetByName();
                                 break;
                             case (int)Helper.ProjectMethods.GetAll:
                                 projectController.GetAll();
