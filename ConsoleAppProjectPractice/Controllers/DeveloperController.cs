@@ -6,6 +6,10 @@ namespace ConsoleAppProjectPractice.Controllers
 {
     public class DeveloperController
     {
+        public void Create()
+        {
+            
+        }
 
     }
 }

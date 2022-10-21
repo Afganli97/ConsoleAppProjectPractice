@@ -1,4 +1,5 @@
 ﻿using Business.Interfaces;
+using DataAccess.Repositories;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
@@ -8,34 +9,74 @@ namespace Business.Services
 {
     public class DeveloperService : IDeveloper
     {
+        public DeveloperRepository developerRepository { get; set; }
+        public static int Count { get; set; }
+        public DeveloperService()
+        {
+            developerRepository = new DeveloperRepository();
+        }
+
         public Developer Create(Developer developer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                developer.Id = ++Count;
+                developerRepository.Create(developer);
+                return developer;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public Developer Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Developer existDeveloper = developerRepository.Get(d=>d.Id == id);
+                developerRepository.Delete(existDeveloper);
+                return existDeveloper;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public Developer Get(int id)
         {
-            throw new NotImplementedException();
+           return developerRepository.Get(d => d.Id == id);
         }
 
         public Developer Get(string name)
         {
-            throw new NotImplementedException();
+            return developerRepository.Get(d => d.Name.ToLower() == name.ToLower());
         }
 
         public List<Developer> GetAll()
         {
-            throw new NotImplementedException();
+            return developerRepository.GetAll();
         }
 
         public Developer Update(int id, Developer developer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Developer existDeveloper = developerRepository.Get(d => d.Id == id);
+                if (existDeveloper != null)
+                {
+                    existDeveloper.Name = developer.Name;
+                    existDeveloper.Skill = developer.Skill;
+                    return existDeveloper;
+                }
+                return null;
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

@@ -12,6 +12,11 @@ namespace Utilities
             Console.ResetColor();
         }
 
+        public enum GlobalMethods
+        {
+            GetProjectMethods = 1,
+            GetDeveloperMethods
+        }
         public enum ProjectMethods
         {
             Create = 1,
