@@ -41,7 +41,7 @@ namespace ConsoleAppProjectPractice.Controllers
         public void Delete()
         {
             Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter project id");
-            string idString = Console.ReadLine();
+        WriteIdAgain: string idString = Console.ReadLine();
             bool isChangeId = Int32.TryParse(idString, out int id);
             if (isChangeId)
             {
@@ -53,12 +53,33 @@ namespace ConsoleAppProjectPractice.Controllers
             else
             {
                 Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
+                goto WriteIdAgain;
+
             }
 
         }
         public void Update()
         {
-            
+            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter project id");
+            string idString = Console.ReadLine();
+            bool isChangeId = Int32.TryParse(idString, out int id);
+            if (isChangeId)
+            {
+                Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter new name");
+                string newName = Console.ReadLine();
+                Project project = projectService.Get(id);
+                if (project != null)
+                {
+                    project.Name = newName;
+                    Helper.Dsiplay(ConsoleColor.DarkGreen, "Project updated");
+                }
+                else
+                    Helper.Dsiplay(ConsoleColor.DarkRed, "Error");
+            }
+            else
+            {
+                Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
+            }
 
         }
         public void GetById()
@@ -77,11 +98,15 @@ namespace ConsoleAppProjectPractice.Controllers
         }
         public void GetByName()
         {
-            List<Project> projects = projectService.GetAll();
-            foreach (var item in projects)
+            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter project name");
+            WriteNameAgain: string name = Console.ReadLine();
+            Project project = projectService.Get(name);
+            if (project == null)
             {
-                Helper.Dsiplay(ConsoleColor.DarkGray, item.Id + " " + item.Name + " " + item.NumberOfDevelopers);
+                Helper.Dsiplay(ConsoleColor.Red, "Enter project name correctly");
+                goto WriteNameAgain;
             }
+            Helper.Dsiplay(ConsoleColor.DarkGray, project.Id + " " + project.Name + " " + project.NumberOfDevelopers);
 
         }
         public void GetAll()
