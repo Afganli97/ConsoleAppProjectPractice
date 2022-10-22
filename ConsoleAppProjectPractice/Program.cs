@@ -69,10 +69,10 @@ namespace ConsoleAppProjectPractice
                                 developerController.GetAll();
                                 break;
                             case (int)Helper.DeveloperMethods.GetSkills:
-                                developerController.GetByName();
+                                developerController.GetSkills();
                                 break;
                             case (int)Helper.DeveloperMethods.GetAllSkills:
-                                developerController.GetAll();
+                                developerController.GetAllSkills();
                                 break;
                         }
                         break;

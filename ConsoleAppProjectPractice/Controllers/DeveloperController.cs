@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business.Interfaces;
+using Business.Services;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
@@ -124,6 +125,52 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.DarkGray, "id: " + item.Id + " name: " + item.Name + " project name: " + item.project.Name);
             }
         }
+        public void GetSkills()
+        {
+            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter developer id");
+        WriteNameAgain: string idString = Console.ReadLine();
+            bool isChangeId = Int32.TryParse(idString, out int id);
+            if (!isChangeId)
+            {
+                Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
+                goto WriteNameAgain;
+            }
+            Developer developer = developerService.Get(id);
+            List<string> skills = developer.Skills;
+            if (skills != null)
+            {
+                Helper.Dsiplay(ConsoleColor.DarkGray, "id: " + developer.Id + " name: " + developer.Name + " project name: " + developer.project.Name + " Skills:");
+                foreach (var item in skills)
+                {
+                    Helper.Dsiplay(ConsoleColor.DarkGray, item);
+                }
+            }
+            else
+            {
+                Helper.Dsiplay(ConsoleColor.Red, "This developer has not skills");
+            }
+        }
+        public void GetAllSkills()
+        {
+            List<Developer> developers = developerService.GetAll();
+            foreach (var item in developers)
+            {
+                List<string> skills = item.Skills;
+                if (skills != null)
+                {
+                    Helper.Dsiplay(ConsoleColor.DarkGray, "id: " + item.Id + " name: " + item.Name + " project name: " + item.project.Name + " Skills:");
+                    foreach (var item1 in skills)
+                    {
+                        Helper.Dsiplay(ConsoleColor.DarkGray, item1);
+                    }
+                }
+                else
+                {
+                    Helper.Dsiplay(ConsoleColor.Red, "This developer has not skills");
+                }
+            }
+        }
+
         public void AddSkills(Developer developer)
         {
             string selectMenu;
