@@ -91,7 +91,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
             }
             Project project = projectService.Get(id);
-            Helper.Dsiplay(ConsoleColor.DarkGray, project.Id + " " + project.Name + " " + project.NumberOfDevelopers);
+            Helper.Dsiplay(ConsoleColor.DarkGray, project.Id + " " + project.Name);
 
 
         }
@@ -105,7 +105,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.Red, "Enter project name correctly");
                 goto WriteNameAgain;
             }
-            Helper.Dsiplay(ConsoleColor.DarkGray, project.Id + " " + project.Name + " " + project.NumberOfDevelopers);
+            Helper.Dsiplay(ConsoleColor.DarkGray, project.Id + " " + project.Name);
 
         }
         public void GetAll()
@@ -113,7 +113,7 @@ namespace ConsoleAppProjectPractice.Controllers
             List<Project> projects = projectService.GetAll();
             foreach (var item in projects)
             {
-                Helper.Dsiplay(ConsoleColor.DarkGray, item.Id + " " + item.Name + " " + item.NumberOfDevelopers);
+                Helper.Dsiplay(ConsoleColor.DarkGray, item.Id + " " + item.Name);
             }
 
         }

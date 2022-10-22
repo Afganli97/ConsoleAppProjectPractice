@@ -10,20 +10,27 @@ namespace Business.Services
     public class DeveloperService : IDeveloper
     {
         public DeveloperRepository developerRepository { get; set; }
+        public ProjectService projectService { get; set; }
         public static int Count { get; set; }
         public DeveloperService()
         {
+            projectService = new ProjectService();
             developerRepository = new DeveloperRepository();
         }
 
-        public Developer Create(Developer developer)
+        public Developer Create(Developer developer, string projectName)
         {
             try
             {
-                developer.Id = ++Count;
-                developer.project.NumberOfDevelopers = Count;
-                developerRepository.Create(developer);
-                return developer;
+                Project project = projectService.Get(projectName);
+                if (project != null)
+                {
+                    developer.project = project;
+                    developer.Id = ++Count;
+                    developerRepository.Create(developer);
+                    return developer;
+                }
+                return null;
             }
             catch (Exception)
             {
@@ -36,8 +43,7 @@ namespace Business.Services
             try
             {
                 Developer existDeveloper = developerRepository.Get(d=>d.Id == id);
-                existDeveloper.project.NumberOfDevelopers--;
-                existDeveloper.project.developers.Remove(existDeveloper);
+                Project.developers.Remove(existDeveloper);
                 developerRepository.Delete(existDeveloper);
                 return existDeveloper;
             }

@@ -29,14 +29,16 @@ namespace ConsoleAppProjectPractice.Controllers
         }
         public void Create()
         {
+            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter project name");
+            string project = Console.ReadLine();
             Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter developer name");
             string name = Console.ReadLine();
             Developer developer = new Developer();
             developer.Name = name;
             AddSkills(developer);
-            if (developerService.Create(developer) != null)
+            if (developerService.Create(developer, project) != null)
             {
-                developer.project.developers.Add(developer);
+                Project.developers.Add(developer);
                 Helper.Dsiplay(ConsoleColor.DarkGreen, "Developer created");
             }
             else

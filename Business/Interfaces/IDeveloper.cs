@@ -7,7 +7,7 @@ namespace Business.Interfaces
 {
     public interface IDeveloper
     {
-        Developer Create(Developer developer);
+        Developer Create(Developer developer, string projectName);
         Developer Update(int id, Developer developer);
         Developer Delete(int id);
         List<Developer> GetAll();
