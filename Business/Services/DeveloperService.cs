@@ -21,6 +21,7 @@ namespace Business.Services
             try
             {
                 developer.Id = ++Count;
+                developer.project.NumberOfDevelopers = Count;
                 developerRepository.Create(developer);
                 return developer;
             }
@@ -35,6 +36,8 @@ namespace Business.Services
             try
             {
                 Developer existDeveloper = developerRepository.Get(d=>d.Id == id);
+                existDeveloper.project.NumberOfDevelopers--;
+                existDeveloper.project.developers.Remove(existDeveloper);
                 developerRepository.Delete(existDeveloper);
                 return existDeveloper;
             }
@@ -67,7 +70,6 @@ namespace Business.Services
                 if (existDeveloper != null)
                 {
                     existDeveloper.Name = developer.Name;
-                    existDeveloper.Skill = developer.Skill;
                     return existDeveloper;
                 }
                 return null;

@@ -47,6 +47,7 @@ namespace ConsoleAppProjectPractice
                         }
                         break;
                     case (int)Helper.GlobalMethods.GetDeveloperMethods:
+                        developerController.SelectDeveloperMenu(out selectMenu);
                         switch (selectMenu)
                         {
                             case (int)Helper.DeveloperMethods.Create:

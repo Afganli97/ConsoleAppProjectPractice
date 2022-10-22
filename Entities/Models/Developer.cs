@@ -11,6 +11,11 @@ namespace Entities.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Project project { get; set; }
-        public List<string> Skills { get; set; }
+
+        public List<string> Skills;
+        public Developer()
+        {
+            Skills = new List<string>();
+        }
     }
 }

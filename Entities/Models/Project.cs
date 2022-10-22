@@ -14,7 +14,6 @@ namespace Entities.Models
         public List<Developer> developers;
         public Project()
         {
-            NumberOfDevelopers++;
             developers = new List<Developer>();
         }
     }

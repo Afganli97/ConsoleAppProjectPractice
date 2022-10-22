@@ -14,7 +14,7 @@ namespace ConsoleAppProjectPractice.Controllers
         {
             developerService = new DeveloperService();
         }
-        public void SelectProjectMenu(out int selectMenu)
+        public void SelectDeveloperMenu(out int selectMenu)
         {
             Helper.Dsiplay(ConsoleColor.Blue, "1.Add Developer\n2.Add developer skills\n3.Remove developer\n4.Get by id\n5.Get by name" +
                 "\n6.Get all developers in definite project\n7.Get all developers\n8.Get developer skills\n9.Get all developers skills\n0.Exit");
@@ -37,7 +37,7 @@ namespace ConsoleAppProjectPractice.Controllers
             if (developerService.Create(developer) != null)
             {
                 developer.project.developers.Add(developer);
-                Helper.Dsiplay(ConsoleColor.DarkGreen, "Project created");
+                Helper.Dsiplay(ConsoleColor.DarkGreen, "Developer created");
             }
             else
                 Helper.Dsiplay(ConsoleColor.DarkRed, "Error");
@@ -45,13 +45,15 @@ namespace ConsoleAppProjectPractice.Controllers
         }
         public void Delete()
         {
-            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter project id");
+            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter developer id");
             string idString = Console.ReadLine();
             bool isChangeId = Int32.TryParse(idString, out int id);
             if (isChangeId)
             {
                 if (developerService.Delete(id) != null)
+                {
                     Helper.Dsiplay(ConsoleColor.DarkGreen, "Project deleted");
+                }
                 else
                     Helper.Dsiplay(ConsoleColor.DarkRed, "Error");
             }
@@ -138,6 +140,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter new skill");
                 string newSkill = Console.ReadLine();
                 developer.Skills.Add(newSkill);
+                Helper.Dsiplay(ConsoleColor.DarkGreen, "Skill added");
             }
         }
         public void GetSkills(int id)
