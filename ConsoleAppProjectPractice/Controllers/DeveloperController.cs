@@ -16,11 +16,11 @@ namespace ConsoleAppProjectPractice.Controllers
         }
         public void SelectProjectMenu(out int selectMenu)
         {
-            Helper.Dsiplay(ConsoleColor.Blue, "1.Add Developer\n2.Update developer skills\n3.Remove developer\n4.Get by id\n5.Get by name" +
-                "\n6.Get all developers in definite project\n7.Get all developers\n0.Exit");
+            Helper.Dsiplay(ConsoleColor.Blue, "1.Add Developer\n2.Add developer skills\n3.Remove developer\n4.Get by id\n5.Get by name" +
+                "\n6.Get all developers in definite project\n7.Get all developers\n8.Get developer skills\n9.Get all developers skills\n0.Exit");
         WriteMenuAgain: string selectMenuTemp = Console.ReadLine();
             bool isChangeMenu = Int32.TryParse(selectMenuTemp, out selectMenu);
-            if (!isChangeMenu || selectMenu > 6 || selectMenu < 0)
+            if (!isChangeMenu || selectMenu > 9 || selectMenu < 0)
             {
                 Helper.Dsiplay(ConsoleColor.DarkRed, "Select menu correct");
                 goto WriteMenuAgain;
@@ -29,12 +29,16 @@ namespace ConsoleAppProjectPractice.Controllers
         }
         public void Create()
         {
-            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter project name");
+            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter developer name");
             string name = Console.ReadLine();
             Developer developer = new Developer();
             developer.Name = name;
+            AddSkills(developer);
             if (developerService.Create(developer) != null)
+            {
+                developer.project.developers.Add(developer);
                 Helper.Dsiplay(ConsoleColor.DarkGreen, "Project created");
+            }
             else
                 Helper.Dsiplay(ConsoleColor.DarkRed, "Error");
 
@@ -59,8 +63,26 @@ namespace ConsoleAppProjectPractice.Controllers
         }
         public void Update()
         {
-
-
+            Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter project id");
+            string idString = Console.ReadLine();
+            bool isChangeId = Int32.TryParse(idString, out int id);
+            if (isChangeId)
+            {
+                Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter new name");
+                string newName = Console.ReadLine();
+                Developer developer = developerService.Get(id);
+                if (developer != null)
+                {
+                    developer.Name = newName;
+                    Helper.Dsiplay(ConsoleColor.DarkGreen, "Project updated");
+                }
+                else
+                    Helper.Dsiplay(ConsoleColor.DarkRed, "Error");
+            }
+            else
+            {
+                Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
+            }
         }
         public void GetById()
         {
@@ -72,7 +94,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
             }
             Developer developer = developerService.Get(id);
-            Helper.Dsiplay(ConsoleColor.DarkGray, developer.Id + " " + developer.Name + " " + developer.Skill);
+            Helper.Dsiplay(ConsoleColor.DarkGray, developer.Id + " " + developer.Name);
 
 
         }
@@ -86,7 +108,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.Red, "Enter project name correctly");
                 goto WriteNameAgain;
             }
-            Helper.Dsiplay(ConsoleColor.DarkGray, developer.Id + " " + developer.Name + " " + developer.Skill);
+            Helper.Dsiplay(ConsoleColor.DarkGray, developer.Id + " " + developer.Name);
 
         }
         public void GetAll()
@@ -94,8 +116,32 @@ namespace ConsoleAppProjectPractice.Controllers
             List<Developer> developers = developerService.GetAll();
             foreach (var item in developers)
             {
-                Helper.Dsiplay(ConsoleColor.DarkGray, item.Id + " " + item.Name + " " + item.Skill);
+                Helper.Dsiplay(ConsoleColor.DarkGray, item.Id + " " + item.Name);
             }
+
+        }
+        public void AddSkills(Developer developer)
+        {
+            string selectMenu;
+            while (true)
+            {
+                Helper.Dsiplay(ConsoleColor.DarkYellow, "1.Add new skill\n0.Exit");
+            WriteAgain: selectMenu = Console.ReadLine();
+                bool isChangeId = Int32.TryParse(selectMenu, out int select);
+                if (!isChangeId || select > 1 || select < 0)
+                {
+                    Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
+                    goto WriteAgain;
+                }
+                if (select == 0)
+                    break;
+                Helper.Dsiplay(ConsoleColor.DarkYellow, "Enter new skill");
+                string newSkill = Console.ReadLine();
+                developer.Skills.Add(newSkill);
+            }
+        }
+        public void GetSkills(int id)
+        {
 
         }
 

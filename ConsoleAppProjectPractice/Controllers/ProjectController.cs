@@ -80,7 +80,6 @@ namespace ConsoleAppProjectPractice.Controllers
             {
                 Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
             }
-
         }
         public void GetById()
         {

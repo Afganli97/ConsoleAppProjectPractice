@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Entities.Models
 {
@@ -9,7 +10,7 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Skill { get; set; }
         public Project project { get; set; }
+        public List<string> Skills { get; set; }
     }
 }

@@ -49,8 +49,29 @@ namespace ConsoleAppProjectPractice
                     case (int)Helper.GlobalMethods.GetDeveloperMethods:
                         switch (selectMenu)
                         {
-
-                            default:
+                            case (int)Helper.DeveloperMethods.Create:
+                                developerController.Create();
+                                break;
+                            case (int)Helper.DeveloperMethods.Update:
+                                developerController.Update();
+                                break;
+                            case (int)Helper.DeveloperMethods.Delete:
+                                developerController.Delete();
+                                break;
+                            case (int)Helper.DeveloperMethods.GetById:
+                                developerController.GetById();
+                                break;
+                            case (int)Helper.DeveloperMethods.GetByName:
+                                developerController.GetByName();
+                                break;
+                            case (int)Helper.DeveloperMethods.GetAll:
+                                developerController.GetAll();
+                                break;
+                            case (int)Helper.DeveloperMethods.GetSkills:
+                                developerController.GetByName();
+                                break;
+                            case (int)Helper.DeveloperMethods.GetAllSkills:
+                                developerController.GetAll();
                                 break;
                         }
                         break;
