@@ -2,6 +2,7 @@
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using Utilities;
 
@@ -98,7 +99,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.Red, "Enter id correctly");
             }
             Developer developer = developerService.Get(id);
-            Helper.Dsiplay(ConsoleColor.DarkGray, developer.Id + " " + developer.Name);
+            Helper.Dsiplay(ConsoleColor.DarkGray, "id: " + developer.Id + " name: " + developer.Name + " project name: " + developer.project.Name);
 
 
         }
@@ -112,7 +113,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Dsiplay(ConsoleColor.Red, "Enter project name correctly");
                 goto WriteNameAgain;
             }
-            Helper.Dsiplay(ConsoleColor.DarkGray, developer.Id + " " + developer.Name);
+            Helper.Dsiplay(ConsoleColor.DarkGray, "id: " + developer.Id + " name: " + developer.Name + " project name: " + developer.project.Name);
 
         }
         public void GetAll()
@@ -120,9 +121,8 @@ namespace ConsoleAppProjectPractice.Controllers
             List<Developer> developers = developerService.GetAll();
             foreach (var item in developers)
             {
-                Helper.Dsiplay(ConsoleColor.DarkGray, item.Id + " " + item.Name);
+                Helper.Dsiplay(ConsoleColor.DarkGray, "id: " + item.Id + " name: " + item.Name + " project name: " + item.project.Name);
             }
-
         }
         public void AddSkills(Developer developer)
         {
