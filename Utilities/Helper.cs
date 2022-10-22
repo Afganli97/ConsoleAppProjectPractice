@@ -4,7 +4,7 @@ namespace Utilities
 {
     public class Helper
     {
-        public static void Dsiplay(ConsoleColor color, string message)
+        public static void Display(ConsoleColor color, string message)
         {
             Console.ForegroundColor = color;
             Console.WriteLine(message);

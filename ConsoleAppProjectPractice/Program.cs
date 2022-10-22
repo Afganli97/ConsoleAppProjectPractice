@@ -8,7 +8,7 @@ namespace ConsoleAppProjectPractice
     {
         static void Main(string[] args)
         {
-            Controller controller = new Controller();
+            GlobalController controller = new GlobalController();
             ProjectController projectController = new ProjectController();
             DeveloperController developerController = new DeveloperController();
 
@@ -24,6 +24,8 @@ namespace ConsoleAppProjectPractice
                 {
                     case (int)Helper.GlobalMethods.GetProjectMethods:
                         projectController.SelectProjectMenu(out selectMenu);
+                        if (selectMenu == 0)
+                            continue;
                         switch (selectMenu)
                         {
                             case (int)Helper.ProjectMethods.Create:
@@ -48,6 +50,8 @@ namespace ConsoleAppProjectPractice
                         break;
                     case (int)Helper.GlobalMethods.GetDeveloperMethods:
                         developerController.SelectDeveloperMenu(out selectMenu);
+                        if (selectMenu == 0)
+                            continue;
                         switch (selectMenu)
                         {
                             case (int)Helper.DeveloperMethods.Create:
@@ -78,7 +82,7 @@ namespace ConsoleAppProjectPractice
                         break;
                 }
 
-                Helper.Dsiplay(ConsoleColor.DarkYellow, "Press Enter");
+                Helper.Display(ConsoleColor.DarkYellow, "Press Enter");
                 Console.ReadLine();
             }
         }
