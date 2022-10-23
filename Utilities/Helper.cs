@@ -16,27 +16,45 @@ namespace Utilities
             GetProjectMethods = 1,
             GetDeveloperMethods
         }
+
+        #region ProjectMethods
         public enum ProjectMethods
         {
-            Create= 1,
-            GetById,
-            GetByName,
-            GetAll,
-            GetAllInProject,
+            Create = 1,
+            Read,
             Update,
             Delete
         }
+        public enum ProjectReadMethods
+        {
+            GetById = 1,
+            GetByName,
+            GetAll,
+            GetAllInProject,
+        }
+        #endregion
+
+        #region DeveloperMethods
         public enum DeveloperMethods
         {
             Create = 1,
-            GetById,
+            Read,
+            Update,
+            Delete,
+        }
+        public enum DeveloperReadMethods
+        {
+            GetById = 1,
             GetByName,
             GetAll,
             GetSkills,
-            GetAllSkills,
-            Update,
-            UpdateSkills,
-            Delete,
+            GetAllSkills
         }
+        public enum DeveloperUpdateMethods
+        {
+            UpdateProject = 1,
+            UpdateSkills
+        }
+        #endregion
     }
 }

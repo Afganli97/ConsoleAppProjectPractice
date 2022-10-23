@@ -13,7 +13,9 @@ namespace ConsoleAppProjectPractice
             DeveloperController developerController = new DeveloperController();
 
             int selectGlobalMenu = 0;
-            int selectMenu;
+            int selectProjectMenu = 0;
+            int selectDeveloperMenu = 0;
+            int selectMenu = 0;
 
             while (true)
             {
@@ -27,28 +29,39 @@ namespace ConsoleAppProjectPractice
                 switch (selectGlobalMenu)
                 {
                     case (int)Helper.GlobalMethods.GetProjectMethods:
-                        projectController.SelectProjectMenu(out selectMenu);
-                        if (selectMenu == 0)
+                        projectController.SelectProjectMenu(out selectProjectMenu);
+                        if (selectProjectMenu == 0)
                         {
                             selectGlobalMenu = 0;
                             continue;
                         }
-                        switch (selectMenu)
+                        switch (selectProjectMenu)
                         {
                             case (int)Helper.ProjectMethods.Create:
                                 projectController.Create();
                                 break;
-                            case (int)Helper.ProjectMethods.GetById:
-                                projectController.GetById();
-                                break;
-                            case (int)Helper.ProjectMethods.GetByName:
-                                projectController.GetByName();
-                                break;
-                            case (int)Helper.ProjectMethods.GetAll:
-                                projectController.GetAll();
-                                break;
-                            case (int)Helper.ProjectMethods.GetAllInProject:
-                                projectController.GetAllInProject();
+                            case (int)Helper.ProjectMethods.Read:
+                                projectController.SelectReadMenu(out selectMenu);
+                                if (selectMenu == 0)
+                                {
+                                    selectProjectMenu = 0;
+                                    continue;
+                                }
+                                switch (selectMenu)
+                                {
+                                    case (int)Helper.ProjectReadMethods.GetById:
+                                        projectController.GetById();
+                                        break;
+                                    case (int)Helper.ProjectReadMethods.GetByName:
+                                        projectController.GetByName();
+                                        break;
+                                    case (int)Helper.ProjectReadMethods.GetAll:
+                                        projectController.GetAll();
+                                        break;
+                                    case (int)Helper.ProjectReadMethods.GetAllInProject:
+                                        projectController.GetAllInProject();
+                                        break;
+                                }
                                 break;
                             case (int)Helper.ProjectMethods.Update:
                                 projectController.Update();
@@ -59,37 +72,59 @@ namespace ConsoleAppProjectPractice
                         }
                         break;
                     case (int)Helper.GlobalMethods.GetDeveloperMethods:
-                        developerController.SelectDeveloperMenu(out selectMenu);
-                        if (selectMenu == 0)
+                        developerController.SelectDeveloperMenu(out selectDeveloperMenu);
+                        if (selectDeveloperMenu == 0)
                         {
                             selectGlobalMenu = 0;
                             continue;
                         }
-                        switch (selectMenu)
+                        switch (selectDeveloperMenu)
                         {
                             case (int)Helper.DeveloperMethods.Create:
                                 developerController.Create();
                                 break;
-                            case (int)Helper.DeveloperMethods.GetById:
-                                developerController.GetById();
-                                break;
-                            case (int)Helper.DeveloperMethods.GetByName:
-                                developerController.GetByName();
-                                break;
-                            case (int)Helper.DeveloperMethods.GetAll:
-                                developerController.GetAll();
-                                break;
-                            case (int)Helper.DeveloperMethods.GetSkills:
-                                developerController.GetSkills();
-                                break;
-                            case (int)Helper.DeveloperMethods.GetAllSkills:
-                                developerController.GetAllSkills();
+                            case (int)Helper.DeveloperMethods.Read:
+                                developerController.SelectReadMenu(out selectMenu);
+                                if (selectMenu == 0)
+                                {
+                                    selectProjectMenu = 0;
+                                    continue;
+                                }
+                                switch (selectMenu)
+                                {
+                                    case (int)Helper.DeveloperReadMethods.GetById:
+                                        developerController.GetById();
+                                        break;
+                                    case (int)Helper.DeveloperReadMethods.GetByName:
+                                        developerController.GetByName();
+                                        break;
+                                    case (int)Helper.DeveloperReadMethods.GetAll:
+                                        developerController.GetAll();
+                                        break;
+                                    case (int)Helper.DeveloperReadMethods.GetSkills:
+                                        developerController.GetSkills();
+                                        break;
+                                    case (int)Helper.DeveloperReadMethods.GetAllSkills:
+                                        developerController.GetAllSkills();
+                                        break;
+                                }
                                 break;
                             case (int)Helper.DeveloperMethods.Update:
-                                developerController.Update();
-                                break;
-                            case (int)Helper.DeveloperMethods.UpdateSkills:
-                                developerController.UpdateSkills();
+                                developerController.SelectUpdateMenu(out selectMenu);
+                                if (selectMenu == 0)
+                                {
+                                    selectDeveloperMenu = 0;
+                                    continue;
+                                }
+                                switch (selectMenu)
+                                {
+                                    case (int)Helper.DeveloperUpdateMethods.UpdateProject:
+                                        developerController.UpdateSkills();
+                                        break;
+                                    case (int)Helper.DeveloperUpdateMethods.UpdateSkills:
+                                        developerController.UpdateSkills();
+                                        break;
+                                }
                                 break;
                             case (int)Helper.DeveloperMethods.Delete:
                                 developerController.Delete();

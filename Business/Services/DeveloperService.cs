@@ -73,6 +73,16 @@ namespace Business.Services
             return developerRepository.GetAll(d => d.Id == id);
         }
 
+        public List<Developer> GetAll(string name)
+        {
+            return developerRepository.GetAll(d => d.Name.ToLower() == name.ToLower());
+        }
+
+        public List<Developer> GetAll(Project project)
+        {
+            return developerRepository.GetAll(d => d.project.Id == project.Id);
+        }
+
         public Developer Update(int id, Developer developer)
         {
             try

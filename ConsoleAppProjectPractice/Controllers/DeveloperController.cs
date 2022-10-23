@@ -23,8 +23,7 @@ namespace ConsoleAppProjectPractice.Controllers
         public void SelectDeveloperMenu(out int selectMenu)
         {
             Console.Clear();
-            Helper.Display(ConsoleColor.Blue, "1.Add developer\n2.Get by id\n3.Get by name\n4.Get all developers\n5.Get defined developer skills" +
-                "\n6.Get all developers skills\n7.Change developer's project\n8.Add developer's skills\n9.Delete developer\n0.Return back");
+            Helper.Display(ConsoleColor.Blue, "1.Create\n2.Read\n3.Update\n4.Delete\n0.Return back");
         WriteMenuAgain: string selectMenuString = Console.ReadLine();
             bool isChangeMenu = Int32.TryParse(selectMenuString, out selectMenu);
             if (!isChangeMenu || selectMenu > 9 || selectMenu < 0)
@@ -33,6 +32,32 @@ namespace ConsoleAppProjectPractice.Controllers
                 goto WriteMenuAgain;
             }
 
+        }
+
+        public void SelectReadMenu(out int selectMenu)
+        {
+            Console.Clear();
+            Helper.Display(ConsoleColor.Blue, "1.Get by id\n2.Get by name\n3.Get all projects\n4.Get all developers in project\n0.Return back");
+        WriteMenuAgain: string selectMenuString = Console.ReadLine();
+            bool isChangeMenu = Int32.TryParse(selectMenuString, out selectMenu);
+            if (!isChangeMenu || selectMenu > 4 || selectMenu < 0)
+            {
+                Helper.Display(ConsoleColor.DarkRed, "Select menu correct");
+                goto WriteMenuAgain;
+            }
+        }
+
+        public void SelectUpdateMenu(out int selectMenu)
+        {
+            Console.Clear();
+            Helper.Display(ConsoleColor.Blue, "1.Change developer's project\n2.Add developer's skills\n0.Return back");
+        WriteMenuAgain: string selectMenuString = Console.ReadLine();
+            bool isChangeMenu = Int32.TryParse(selectMenuString, out selectMenu);
+            if (!isChangeMenu || selectMenu > 2 || selectMenu < 0)
+            {
+                Helper.Display(ConsoleColor.DarkRed, "Select menu correct");
+                goto WriteMenuAgain;
+            }
         }
 
         public void Create()

@@ -19,19 +19,30 @@ namespace ConsoleAppProjectPractice.Controllers
             developerService = new DeveloperService();
         }
 
-        public void SelectProjectMenu(out int selectMenu)
+        public void SelectProjectMenu(out int selectProjectMenu)
         {
             Console.Clear();
-            Helper.Display(ConsoleColor.Blue, "1.Create project\n2.Get by id\n3.Get by name\n4.Get all projects\n5.Get all developers in project\n" +
-                "6.Update project\n7.Delete project\n0.Return back");
+            Helper.Display(ConsoleColor.Blue, "1.Create project\n2.Read project\n3.Update project\n4.Delete project\n0.Return back");
         WriteMenuAgain: string selectMenuString = Console.ReadLine();
-            bool isChangeMenu = Int32.TryParse(selectMenuString, out selectMenu);
-            if (!isChangeMenu || selectMenu > 7 || selectMenu < 0)
+            bool isChangeMenu = Int32.TryParse(selectMenuString, out selectProjectMenu);
+            if (!isChangeMenu || selectProjectMenu > 4 || selectProjectMenu < 0)
             {
                 Helper.Display(ConsoleColor.DarkRed, "Select menu correct");
                 goto WriteMenuAgain;
             }
-            
+        }
+
+        public void SelectReadMenu(out int selectMenu)
+        {
+            Console.Clear();
+            Helper.Display(ConsoleColor.Blue, "1.Get by id\n2.Get by name\n3.Get all projects\n4.Get all developers in project\n0.Return back");
+        WriteMenuAgain: string selectMenuString = Console.ReadLine();
+            bool isChangeMenu = Int32.TryParse(selectMenuString, out selectMenu);
+            if (!isChangeMenu || selectMenu > 4 || selectMenu < 0)
+            {
+                Helper.Display(ConsoleColor.DarkRed, "Select menu correct");
+                goto WriteMenuAgain;
+            }
         }
 
         public void Create()
