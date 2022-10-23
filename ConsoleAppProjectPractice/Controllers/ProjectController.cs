@@ -11,17 +11,20 @@ namespace ConsoleAppProjectPractice.Controllers
     public class ProjectController
     {
         public ProjectService projectService { get; set; }
+        public DeveloperService developerService { get; set; }
         public ProjectController()
         {
             projectService = new ProjectService();
+            developerService = new DeveloperService();
         }
         public void SelectProjectMenu(out int selectMenu)
         {
             Console.Clear();
-            Helper.Display(ConsoleColor.Blue, "1.Create project\n2.Update project\n3.Delete project\n4.Get by id\n5.Get by name\n6.Get all\n0.Return back");
+            Helper.Display(ConsoleColor.Blue, "1.Create project\n2.Get by id\n3.Get by name\n4.Get all projects\n5.Get all developers in project\n" +
+                "6.Update project\n7.Delete project\n0.Return back");
         WriteMenuAgain: string selectMenuString = Console.ReadLine();
             bool isChangeMenu = Int32.TryParse(selectMenuString, out selectMenu);
-            if (!isChangeMenu || selectMenu > 6 || selectMenu < 0)
+            if (!isChangeMenu || selectMenu > 7 || selectMenu < 0)
             {
                 Helper.Display(ConsoleColor.DarkRed, "Select menu correct");
                 goto WriteMenuAgain;
@@ -49,49 +52,6 @@ namespace ConsoleAppProjectPractice.Controllers
                 goto WriteNameAgain;
             }
 
-        }
-        public void Delete()
-        {
-            Helper.Display(ConsoleColor.DarkYellow, "Enter project id");
-        WriteIdAgain: string idString = Console.ReadLine();
-            bool isChangeId = Int32.TryParse(idString, out int id);
-            if (isChangeId)
-            {
-                if (projectService.Delete(id) != null)
-                    Helper.Display(ConsoleColor.DarkGreen, "Project deleted");
-                else
-                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
-            }
-            else
-            {
-                Helper.Display(ConsoleColor.Red, "Enter id correctly");
-                goto WriteIdAgain;
-            }
-
-        }
-        public void Update()
-        {
-            Helper.Display(ConsoleColor.DarkYellow, "Enter project id");
-        WriteIdAgain: string idString = Console.ReadLine();
-            bool isChangeId = Int32.TryParse(idString, out int id);
-            if (isChangeId)
-            {
-                Project project = projectService.Get(id);
-                if (project != null)
-                {
-                    Helper.Display(ConsoleColor.DarkYellow, "Enter new name");
-                    string newName = Console.ReadLine();
-                    project.Name = newName;
-                    Helper.Display(ConsoleColor.DarkGreen, "Project updated");
-                }
-                else
-                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
-            }
-            else
-            {
-                Helper.Display(ConsoleColor.Red, "Enter id correctly");
-                goto WriteIdAgain;
-            }
         }
         public void GetById()
         {
@@ -122,6 +82,30 @@ namespace ConsoleAppProjectPractice.Controllers
                 Helper.Display(ConsoleColor.DarkRed, "There is no project under this name");
 
         }
+        public void GetAllInProject()
+        {
+            Helper.Display(ConsoleColor.DarkYellow, "Enter project id");
+        WriteIdAgain: string idString = Console.ReadLine();
+            bool isChangeId = Int32.TryParse(idString, out int id);
+            if (!isChangeId)
+            {
+                Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                goto WriteIdAgain;
+            }
+            Project project = projectService.Get(id);
+            if (project != null)
+            {
+                List<Developer> developers = developerService.GetAll(id);
+                Helper.Display(ConsoleColor.DarkGray, "Id: " + project.Id + " Name: " + project.Name);
+                foreach (var item in developers)
+                {
+                    Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name);
+                }
+            }
+            else
+                Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
+
+        }
         public void GetAll()
         {
             List<Project> projects = projectService.GetAll();
@@ -134,6 +118,49 @@ namespace ConsoleAppProjectPractice.Controllers
             }
             else
                 Helper.Display(ConsoleColor.Red, "Has not any projects");
+
+        }
+        public void Update()
+        {
+            Helper.Display(ConsoleColor.DarkYellow, "Enter project id");
+        WriteIdAgain: string idString = Console.ReadLine();
+            bool isChangeId = Int32.TryParse(idString, out int id);
+            if (isChangeId)
+            {
+                Project project = projectService.Get(id);
+                if (project != null)
+                {
+                    Helper.Display(ConsoleColor.DarkYellow, "Enter new name");
+                    string newName = Console.ReadLine();
+                    project.Name = newName;
+                    Helper.Display(ConsoleColor.DarkGreen, "Project updated");
+                }
+                else
+                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
+            }
+            else
+            {
+                Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                goto WriteIdAgain;
+            }
+        }
+        public void Delete()
+        {
+            Helper.Display(ConsoleColor.DarkYellow, "Enter project id");
+        WriteIdAgain: string idString = Console.ReadLine();
+            bool isChangeId = Int32.TryParse(idString, out int id);
+            if (isChangeId)
+            {
+                if (projectService.Delete(id) != null)
+                    Helper.Display(ConsoleColor.DarkGreen, "Project deleted");
+                else
+                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
+            }
+            else
+            {
+                Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                goto WriteIdAgain;
+            }
 
         }
     }

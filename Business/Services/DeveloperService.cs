@@ -68,6 +68,11 @@ namespace Business.Services
             return developerRepository.GetAll();
         }
 
+        public List<Developer> GetAll(int id)
+        {
+            return developerRepository.GetAll(d => d.Id == id);
+        }
+
         public Developer Update(int id, Developer developer)
         {
             try

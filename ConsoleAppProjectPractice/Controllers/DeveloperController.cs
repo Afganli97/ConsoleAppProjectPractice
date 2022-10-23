@@ -21,8 +21,8 @@ namespace ConsoleAppProjectPractice.Controllers
         public void SelectDeveloperMenu(out int selectMenu)
         {
             Console.Clear();
-            Helper.Display(ConsoleColor.Blue, "1.Add developer\n2.Add developer skills\n3.Delete developer\n4.Get by id\n5.Get by name" +
-                "\n6.Get all developers in definite project\n7.Get all developers\n8.Get developer skills\n9.Get all developers skills\n0.Return back");
+            Helper.Display(ConsoleColor.Blue, "1.Add developer\n2.Get by id\n3.Get by name\n4.Get all developers\n5.Get defined developer skills" +
+                "\n6.Get all developers skills\n7.Change developer's project\n8.Add developer's skills\n9.Delete developer\n0.Return back");
         WriteMenuAgain: string selectMenuString = Console.ReadLine();
             bool isChangeMenu = Int32.TryParse(selectMenuString, out selectMenu);
             if (!isChangeMenu || selectMenu > 9 || selectMenu < 0)
@@ -73,31 +73,6 @@ namespace ConsoleAppProjectPractice.Controllers
             else
                 Helper.Display(ConsoleColor.DarkRed, "No project to create developer!");
 
-        }
-        public void Delete()
-        {
-            List<Developer> developers = developerService.GetAll();
-            if (developers.Count != 0)
-            {
-                Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
-                string idString = Console.ReadLine();
-                bool isChangeId = Int32.TryParse(idString, out int id);
-                if (isChangeId)
-                {
-                    if (developerService.Delete(id) != null)
-                    {
-                        Helper.Display(ConsoleColor.DarkGreen, "Developer deleted");
-                    }
-                    else
-                        Helper.Display(ConsoleColor.DarkRed, "Id not found!");
-                }
-                else
-                {
-                    Helper.Display(ConsoleColor.Red, "Enter id correctly");
-                }
-            }
-            else
-                Helper.Display(ConsoleColor.DarkRed, "No developer to delete!");
         }
         public void Update()
         {

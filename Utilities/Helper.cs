@@ -19,23 +19,24 @@ namespace Utilities
         public enum ProjectMethods
         {
             Create= 1,
-            Update,
-            Delete,
             GetById,
             GetByName,
-            GetAll
+            GetAll,
+            GetAllInProject,
+            Update,
+            Delete
         }
         public enum DeveloperMethods
         {
             Create = 1,
-            Update,
-            Delete,
             GetById,
             GetByName,
-            GetAllInProject,
             GetAll,
             GetSkills,
-            GetAllSkills
+            GetAllSkills,
+            Update,
+            UpdateSkills,
+            Delete,
         }
     }
 }

@@ -38,12 +38,6 @@ namespace ConsoleAppProjectPractice
                             case (int)Helper.ProjectMethods.Create:
                                 projectController.Create();
                                 break;
-                            case (int)Helper.ProjectMethods.Update:
-                                projectController.Update();
-                                break;
-                            case (int)Helper.ProjectMethods.Delete:
-                                projectController.Delete();
-                                break;
                             case (int)Helper.ProjectMethods.GetById:
                                 projectController.GetById();
                                 break;
@@ -52,6 +46,15 @@ namespace ConsoleAppProjectPractice
                                 break;
                             case (int)Helper.ProjectMethods.GetAll:
                                 projectController.GetAll();
+                                break;
+                            case (int)Helper.ProjectMethods.GetAllInProject:
+                                projectController.GetAllInProject();
+                                break;
+                            case (int)Helper.ProjectMethods.Update:
+                                projectController.Update();
+                                break;
+                            case (int)Helper.ProjectMethods.Delete:
+                                projectController.Delete();
                                 break;
                         }
                         break;
@@ -67,12 +70,6 @@ namespace ConsoleAppProjectPractice
                             case (int)Helper.DeveloperMethods.Create:
                                 developerController.Create();
                                 break;
-                            case (int)Helper.DeveloperMethods.Update:
-                                developerController.Update();
-                                break;
-                            case (int)Helper.DeveloperMethods.Delete:
-                                developerController.Delete();
-                                break;
                             case (int)Helper.DeveloperMethods.GetById:
                                 developerController.GetById();
                                 break;
@@ -87,6 +84,15 @@ namespace ConsoleAppProjectPractice
                                 break;
                             case (int)Helper.DeveloperMethods.GetAllSkills:
                                 developerController.GetAllSkills();
+                                break;
+                            case (int)Helper.DeveloperMethods.Update:
+                                developerController.Update();
+                                break;
+                            case (int)Helper.DeveloperMethods.UpdateSkills:
+                                developerController.UpdateSkills();
+                                break;
+                            case (int)Helper.DeveloperMethods.Delete:
+                                developerController.Delete();
                                 break;
                         }
                         break;
