@@ -106,7 +106,7 @@ namespace ConsoleAppProjectPractice.Controllers
             Project project = projectService.Get(id);
             if (project != null)
             {
-                Helper.Display(ConsoleColor.DarkGray, project.Id + " " + project.Name);
+                Helper.Display(ConsoleColor.DarkGray, "Id: " + project.Id + " Name: " + project.Name);
             }
             else
                 Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
@@ -117,7 +117,7 @@ namespace ConsoleAppProjectPractice.Controllers
             string name = Console.ReadLine();
             Project project = projectService.Get(name);
             if (project != null)
-                Helper.Display(ConsoleColor.DarkGray, project.Id + " " + project.Name);
+                Helper.Display(ConsoleColor.DarkGray, "Id: " + project.Id + " Name: " + project.Name);
             else
                 Helper.Display(ConsoleColor.DarkRed, "There is no project under this name");
 
@@ -129,7 +129,7 @@ namespace ConsoleAppProjectPractice.Controllers
             {
                 foreach (var item in projects)
                 {
-                    Helper.Display(ConsoleColor.DarkGray, item.Id + " " + item.Name);
+                    Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name);
                 }
             }
             else

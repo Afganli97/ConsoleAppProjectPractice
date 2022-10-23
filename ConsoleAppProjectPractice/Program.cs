@@ -8,24 +8,31 @@ namespace ConsoleAppProjectPractice
     {
         static void Main(string[] args)
         {
-            GlobalController controller = new GlobalController();
+            GlobalController globalController = new GlobalController();
             ProjectController projectController = new ProjectController();
             DeveloperController developerController = new DeveloperController();
 
+            int selectGlobalMenu = 0;
             int selectMenu;
 
             while (true)
             {
                 Console.Clear();
-                controller.SelectGlobalMenu(out selectMenu);
-                if (selectMenu == 0)
-                    break;
-                switch (selectMenu)
+                if (selectGlobalMenu == 0)
+                {
+                    globalController.SelectGlobalMenu(out selectGlobalMenu);
+                    if (selectGlobalMenu == 0)
+                        break;
+                }
+                switch (selectGlobalMenu)
                 {
                     case (int)Helper.GlobalMethods.GetProjectMethods:
                         projectController.SelectProjectMenu(out selectMenu);
                         if (selectMenu == 0)
+                        {
+                            selectGlobalMenu = 0;
                             continue;
+                        }
                         switch (selectMenu)
                         {
                             case (int)Helper.ProjectMethods.Create:
@@ -51,7 +58,10 @@ namespace ConsoleAppProjectPractice
                     case (int)Helper.GlobalMethods.GetDeveloperMethods:
                         developerController.SelectDeveloperMenu(out selectMenu);
                         if (selectMenu == 0)
+                        {
+                            selectGlobalMenu = 0;
                             continue;
+                        }
                         switch (selectMenu)
                         {
                             case (int)Helper.DeveloperMethods.Create:
