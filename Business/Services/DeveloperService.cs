@@ -75,7 +75,7 @@ namespace Business.Services
                 Developer existDeveloper = developerRepository.Get(d => d.Id == id);
                 if (existDeveloper != null)
                 {
-                    existDeveloper.Name = developer.Name;
+                    existDeveloper.project = developer.project;
                     return existDeveloper;
                 }
                 return null;
