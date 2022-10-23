@@ -46,7 +46,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 {
                     string developerName = string.Empty;
                     Helper.Display(ConsoleColor.DarkYellow, "Enter developer name");
-                    developerName = Console.ReadLine();
+                WriteDeveloperAgain: developerName = Console.ReadLine();
                     developerName = developerName.Trim();
                     if (developerName != string.Empty)
                     {
@@ -63,8 +63,8 @@ namespace ConsoleAppProjectPractice.Controllers
                     }
                     else
                     {
-                        Helper.Display(ConsoleColor.Red, "Enter project name correctly");
-                        goto WriteProjectAgain;
+                        Helper.Display(ConsoleColor.Red, "Enter developer name correctly");
+                        goto WriteDeveloperAgain;
                     }
                 }
                 else
@@ -74,136 +74,231 @@ namespace ConsoleAppProjectPractice.Controllers
                 }
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "No project to create developer!");
+                Helper.Display(ConsoleColor.DarkRed, "No projects to create developer!");
 
         }
 
         public void GetById()
         {
-            Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
-            string idString = Console.ReadLine();
-            bool isChangeId = Int32.TryParse(idString, out int id);
-            if (!isChangeId)
+            List<Developer> developers = developerService.GetAll();
+            if (developers.Count != 0)
             {
-                Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
+            WriteIdAgain: string idString = Console.ReadLine();
+                bool isChangeId = Int32.TryParse(idString, out int id);
+                if (isChangeId)
+                {
+                    if (developerService.Get(id) != null)
+                    {
+                        Developer developer = developerService.Get(id);
+                        Helper.Display(ConsoleColor.DarkGray, "Id: " + developer.Id + " Name: " + developer.Name + " Project name: " + developer.project.Name);
+                    }
+                    else
+                    {
+                        Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                        goto WriteIdAgain;
+                    }
+                }
+                else
+                {
+                    Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                    goto WriteIdAgain;
+                }
             }
-            Developer developer = developerService.Get(id);
-            Helper.Display(ConsoleColor.DarkGray, "Id: " + developer.Id + " Name: " + developer.Name + " Project name: " + developer.project.Name);
-
-
+            else
+                Helper.Display(ConsoleColor.DarkRed, "No developer to get!");
         }
 
         public void GetByName()
         {
-            Helper.Display(ConsoleColor.DarkYellow, "Enter project name");
-        WriteNameAgain: string name = Console.ReadLine();
-            Developer developer = developerService.Get(name);
-            if (developer == null)
+            List<Developer> developers = developerService.GetAll();
+            if (developers.Count != 0)
             {
-                Helper.Display(ConsoleColor.Red, "Enter project name correctly");
-                goto WriteNameAgain;
+                Helper.Display(ConsoleColor.DarkYellow, "Enter developer name");
+            WriteNameAgain: string name = Console.ReadLine();
+                developers = developerService.GetAll(name);
+                if (developers.Count == 0)
+                {
+                    Helper.Display(ConsoleColor.Red, "Enter developer name correctly");
+                    goto WriteNameAgain;
+                }
+                foreach (var item in developers)
+                {
+                    Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name + " Project name: " + item.project.Name);
+                }
             }
-            Helper.Display(ConsoleColor.DarkGray, "Id: " + developer.Id + " Name: " + developer.Name + " Project name: " + developer.project.Name);
-
+            else
+                Helper.Display(ConsoleColor.DarkRed, "No developer to get!");
         }
 
         public void GetAll()
         {
             List<Developer> developers = developerService.GetAll();
-            foreach (var item in developers)
+            if (developers.Count != 0)
             {
-                Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name + " Project name: " + item.project.Name);
-            }
-        }
-
-        public void GetSkills()
-        {
-            Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
-        WriteNameAgain: string idString = Console.ReadLine();
-            bool isChangeId = Int32.TryParse(idString, out int id);
-            if (!isChangeId)
-            {
-                Helper.Display(ConsoleColor.Red, "Enter id correctly");
-                goto WriteNameAgain;
-            }
-            Developer developer = developerService.Get(id);
-            List<string> skills = developer.Skills;
-            if (skills != null)
-            {
-                Helper.Display(ConsoleColor.DarkGray, "Id: " + developer.Id + " Name: " + developer.Name + " Project name: " + developer.project.Name + " Skills:");
-                foreach (var item in skills)
+                foreach (var item in developers)
                 {
-                    Helper.Display(ConsoleColor.DarkGray, item);
+                    Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name + " Project name: " + item.project.Name);
                 }
             }
             else
-            {
-                Helper.Display(ConsoleColor.Red, "This developer has not skills");
-            }
+                Helper.Display(ConsoleColor.DarkRed, "No developer to get!");
         }
 
-        public void GetAllSkills()
-        {
-            List<Developer> developers = developerService.GetAll();
-            foreach (var item in developers)
-            {
-                List<string> skills = item.Skills;
-                if (skills != null)
-                {
-                    Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name + " Project name: " + item.project.Name + " Skills:");
-                    foreach (var item1 in skills)
-                    {
-                        Helper.Display(ConsoleColor.DarkGray, item1);
-                    }
-                }
-                else
-                {
-                    Helper.Display(ConsoleColor.Red, "This developer has not skills");
-                }
-            }
-        }
-
-        public void Update()
+        public void GetSkills()
         {
             List<Developer> developers = developerService.GetAll();
             if (developers.Count != 0)
             {
                 Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
-                string idString = Console.ReadLine();
+            WriteNameAgain: string idString = Console.ReadLine();
                 bool isChangeId = Int32.TryParse(idString, out int id);
                 if (isChangeId)
                 {
-                    Helper.Display(ConsoleColor.DarkYellow, "Enter new name");
-                    string newName = Console.ReadLine();
-                    Developer developer = developerService.Get(id);
-                    if (developer != null)
+                    if (developerService.Get(id) != null)
                     {
-                        //developer;
-                        Helper.Display(ConsoleColor.DarkGreen, "Developer updated");
+                        Developer developer = developerService.Get(id);
+                        List<string> skills = developer.Skills;
+                        if (skills.Count != 0)
+                        {
+                            Helper.Display(ConsoleColor.DarkGray, "Id: " + developer.Id + " Name: " + developer.Name + " Project name: " + developer.project.Name + " Skills:");
+                            foreach (var item in skills)
+                            {
+                                Helper.Display(ConsoleColor.DarkGray, item);
+                            }
+                        }
+                        else
+                            Helper.Display(ConsoleColor.Red, "This developer has not skills");
                     }
                     else
-                        Helper.Display(ConsoleColor.DarkRed, "Id not found!");
+                    {
+                        Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                        goto WriteNameAgain;
+                    }
                 }
                 else
                 {
                     Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                    goto WriteNameAgain;
                 }
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "No developer to update!");
+                Helper.Display(ConsoleColor.DarkRed, "No developer to get!");
+        }
+
+        public void GetAllSkills()
+        {
+            List<Developer> developers = developerService.GetAll();
+            if (developers.Count != 0)
+            {
+                foreach (var item in developers)
+                {
+                    List<string> skills = item.Skills;
+                    if (skills.Count != 0)
+                    {
+                        Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name + " Project name: " + item.project.Name + " Skills:");
+                        foreach (var item1 in skills)
+                        {
+                            Helper.Display(ConsoleColor.DarkGray, item1);
+                        }
+                    }
+                    else
+                    {
+                        Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name + " Project name: " + item.project.Name + " Skills:");
+                        Helper.Display(ConsoleColor.Red, "This developer has not skills");
+                    }
+                }
+            }
+            else
+                Helper.Display(ConsoleColor.DarkRed, "No developer to get!");
+        }
+
+        public void Update()
+        {
+            List<Project> projects = projectService.GetAll();
+            if (projects.Count > 1)
+            {
+                List<Developer> developers = developerService.GetAll();
+                if (developers.Count != 0)
+                {
+                    Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
+                WriteIdAgain: string idString = Console.ReadLine();
+                    bool isChangeId = Int32.TryParse(idString, out int id);
+                    if (isChangeId)
+                    {
+                        Developer developer = developerService.Get(id);
+                        if (developer != null)
+                        {
+                            Helper.Display(ConsoleColor.DarkYellow, "Enter project id");
+                        WriteProjectIdAgain: string newProject = Console.ReadLine();
+                            isChangeId = Int32.TryParse(newProject, out int newProjectId);
+                            if (isChangeId)
+                            {
+                                if (developer.project.Id != newProjectId && (projectService.Get(newProjectId)) != null)
+                                {
+                                    developer.project = projectService.Get(newProjectId);
+                                    Helper.Display(ConsoleColor.DarkGreen, "Developer updated");
+                                }
+                                else
+                                {
+                                    Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                                    goto WriteProjectIdAgain;
+                                }
+                            }
+                            else
+                            {
+                                Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                                goto WriteProjectIdAgain;
+                            }
+                        }
+                        else
+                        {
+                            Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                            goto WriteIdAgain;
+                        }
+                    }
+                    else
+                    {
+                        Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                        goto WriteIdAgain;
+                    }
+                }
+                else
+                    Helper.Display(ConsoleColor.DarkRed, "No developer to update!");
+            }
+            else
+                Helper.Display(ConsoleColor.DarkRed, "Not enough projects!");
         }
 
         public void UpdateSkills()
         {
-            Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
-            string idString = Console.ReadLine();
-            bool isChangeId = Int32.TryParse(idString, out int id);
-            if (!isChangeId)
+            List<Developer> developers = developerService.GetAll();
+            if (developers.Count != 0)
             {
-                Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
+            WriteIdAgain: string idString = Console.ReadLine();
+                bool isChangeId = Int32.TryParse(idString, out int id);
+                if (isChangeId)
+                {
+                    if (developerService.Get(id) != null)
+                    {
+                        Developer developer = developerService.Get(id);
+                        AddSkills(developer);
+                    }
+                    else
+                    {
+                        Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                        goto WriteIdAgain;
+                    }
+                }
+                else
+                {
+                    Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                    goto WriteIdAgain;
+                }
             }
-            Developer developer = developerService.Get(id);
-            AddSkills(developer);
+            else
+                Helper.Display(ConsoleColor.DarkRed, "No developer to update!");
         }
 
         public void Delete()
@@ -212,7 +307,7 @@ namespace ConsoleAppProjectPractice.Controllers
             if (developers.Count != 0)
             {
                 Helper.Display(ConsoleColor.DarkYellow, "Enter developer id");
-                string idString = Console.ReadLine();
+            WriteIdAgain: string idString = Console.ReadLine();
                 bool isChangeId = Int32.TryParse(idString, out int id);
                 if (isChangeId)
                 {
@@ -226,6 +321,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 else
                 {
                     Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                    goto WriteIdAgain;
                 }
             }
             else

@@ -47,7 +47,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 if (projectService.Create(project) != null)
                     Helper.Display(ConsoleColor.DarkGreen, "Project created");
                 else
-                    Helper.Display(ConsoleColor.DarkRed, "Error");
+                    Helper.Display(ConsoleColor.DarkRed, "Error!");
             }
             else
             {
@@ -58,6 +58,7 @@ namespace ConsoleAppProjectPractice.Controllers
         }
 
         public void GetById()
+
         {
             List<Project> projects = projectService.GetAll();
             if (projects.Count != 0)
@@ -76,10 +77,10 @@ namespace ConsoleAppProjectPractice.Controllers
                     Helper.Display(ConsoleColor.DarkGray, "Id: " + project.Id + " Name: " + project.Name);
                 }
                 else
-                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
+                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this id!");
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "Has not any projects");
+                Helper.Display(ConsoleColor.DarkRed, "Has not any projects!");
         }
 
         public void GetByName()
@@ -93,10 +94,10 @@ namespace ConsoleAppProjectPractice.Controllers
                 if (project != null)
                     Helper.Display(ConsoleColor.DarkGray, "Id: " + project.Id + " Name: " + project.Name);
                 else
-                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this name");
+                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this name!");
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "Has not any projects");
+                Helper.Display(ConsoleColor.DarkRed, "Has not any projects!");
         }
 
         public void GetAllInProject()
@@ -115,23 +116,26 @@ namespace ConsoleAppProjectPractice.Controllers
                 Project project = projectService.Get(id);
                 if (project != null)
                 {
-                    List<Developer> developers = developerService.GetAll(id);
+                    List<Developer> developers = developerService.GetAll(project);
                     if (developers.Count != 0)
                     {
-                        Helper.Display(ConsoleColor.DarkGray, "Id: " + project.Id + " Name: " + project.Name);
+                        Helper.Display(ConsoleColor.DarkGray, project.Name + "'s developers: ");
                         foreach (var item in developers)
                         {
                             Helper.Display(ConsoleColor.DarkGray, "Id: " + item.Id + " Name: " + item.Name);
                         }
                     }
                     else
-                        Helper.Display(ConsoleColor.DarkRed, "Has not any developers in this project");
+                        Helper.Display(ConsoleColor.DarkRed, "Has not any developers in this project!");
                 }
                 else
-                    Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
+                {
+                    Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                    goto WriteIdAgain;
+                }
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "Has not any projects");
+                Helper.Display(ConsoleColor.DarkRed, "Has not any projects!");
         }
 
         public void GetAll()
@@ -145,7 +149,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 }
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "Has not any projects");
+                Helper.Display(ConsoleColor.DarkRed, "Has not any projects!");
         }
 
         public void Update()
@@ -176,7 +180,10 @@ namespace ConsoleAppProjectPractice.Controllers
                         }
                     }
                     else
-                        Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
+                    {
+                        Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                        goto WriteIdAgain;
+                    }
                 }
                 else
                 {
@@ -185,7 +192,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 }
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "Has not any projects");
+                Helper.Display(ConsoleColor.DarkRed, "Has not any projects!");
         }
 
         public void Delete()
@@ -201,7 +208,10 @@ namespace ConsoleAppProjectPractice.Controllers
                     if (projectService.Delete(id) != null)
                         Helper.Display(ConsoleColor.DarkGreen, "Project deleted");
                     else
-                        Helper.Display(ConsoleColor.DarkRed, "There is no project under this id");
+                    {
+                        Helper.Display(ConsoleColor.Red, "Enter id correctly");
+                        goto WriteIdAgain;
+                    }
                 }
                 else
                 {
@@ -210,7 +220,7 @@ namespace ConsoleAppProjectPractice.Controllers
                 }
             }
             else
-                Helper.Display(ConsoleColor.DarkRed, "Has not any projects");
+                Helper.Display(ConsoleColor.DarkRed, "Has not any projects!");
         }
     }
 }
